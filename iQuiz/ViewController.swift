@@ -8,8 +8,20 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let pics = ["coffee", "pom", "wall"]
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pics.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
