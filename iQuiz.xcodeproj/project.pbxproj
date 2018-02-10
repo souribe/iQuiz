@@ -14,10 +14,11 @@
 		B2B14E25202E976E0062910A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2B14E23202E976E0062910A /* LaunchScreen.storyboard */; };
 		B2B14E30202E976E0062910A /* iQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B14E2F202E976E0062910A /* iQuizTests.swift */; };
 		B2B14E3B202E976E0062910A /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B14E3A202E976E0062910A /* iQuizUITests.swift */; };
-		B2B14E4B202E98610062910A /* pom.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B2B14E48202E98610062910A /* pom.jpg */; };
-		B2B14E4C202E98610062910A /* coffee.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B2B14E49202E98610062910A /* coffee.jpg */; };
-		B2B14E4D202E98610062910A /* wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B2B14E4A202E98610062910A /* wall.jpg */; };
 		B2B14E4F202F947F0062910A /* ViewControllerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B14E4E202F947F0062910A /* ViewControllerTableViewCell.swift */; };
+		B2B14E51202FA2050062910A /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B14E50202FA2050062910A /* AppData.swift */; };
+		B2B14E55202FAA020062910A /* chem.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B14E52202FAA020062910A /* chem.png */; };
+		B2B14E56202FAA020062910A /* cube.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B14E53202FAA020062910A /* cube.png */; };
+		B2B14E57202FAA020062910A /* shield.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B14E54202FAA020062910A /* shield.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +52,11 @@
 		B2B14E36202E976E0062910A /* iQuizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iQuizUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B14E3A202E976E0062910A /* iQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQuizUITests.swift; sourceTree = "<group>"; };
 		B2B14E3C202E976E0062910A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B2B14E48202E98610062910A /* pom.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pom.jpg; sourceTree = "<group>"; };
-		B2B14E49202E98610062910A /* coffee.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee.jpg; sourceTree = "<group>"; };
-		B2B14E4A202E98610062910A /* wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall.jpg; sourceTree = "<group>"; };
 		B2B14E4E202F947F0062910A /* ViewControllerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTableViewCell.swift; sourceTree = "<group>"; };
+		B2B14E50202FA2050062910A /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		B2B14E52202FAA020062910A /* chem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chem.png; sourceTree = "<group>"; };
+		B2B14E53202FAA020062910A /* cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cube.png; sourceTree = "<group>"; };
+		B2B14E54202FAA020062910A /* shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,15 +107,16 @@
 		B2B14E19202E976E0062910A /* iQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				B2B14E50202FA2050062910A /* AppData.swift */,
 				B2B14E1A202E976E0062910A /* AppDelegate.swift */,
 				B2B14E1C202E976E0062910A /* ViewController.swift */,
 				B2B14E1E202E976E0062910A /* Main.storyboard */,
 				B2B14E4E202F947F0062910A /* ViewControllerTableViewCell.swift */,
 				B2B14E21202E976E0062910A /* Assets.xcassets */,
+				B2B14E52202FAA020062910A /* chem.png */,
+				B2B14E53202FAA020062910A /* cube.png */,
+				B2B14E54202FAA020062910A /* shield.png */,
 				B2B14E23202E976E0062910A /* LaunchScreen.storyboard */,
-				B2B14E49202E98610062910A /* coffee.jpg */,
-				B2B14E48202E98610062910A /* pom.jpg */,
-				B2B14E4A202E98610062910A /* wall.jpg */,
 				B2B14E26202E976E0062910A /* Info.plist */,
 			);
 			path = iQuiz;
@@ -244,11 +247,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2B14E4C202E98610062910A /* coffee.jpg in Resources */,
-				B2B14E4D202E98610062910A /* wall.jpg in Resources */,
+				B2B14E57202FAA020062910A /* shield.png in Resources */,
+				B2B14E55202FAA020062910A /* chem.png in Resources */,
+				B2B14E56202FAA020062910A /* cube.png in Resources */,
 				B2B14E25202E976E0062910A /* LaunchScreen.storyboard in Resources */,
 				B2B14E22202E976E0062910A /* Assets.xcassets in Resources */,
-				B2B14E4B202E98610062910A /* pom.jpg in Resources */,
 				B2B14E20202E976E0062910A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +280,7 @@
 				B2B14E1D202E976E0062910A /* ViewController.swift in Sources */,
 				B2B14E1B202E976E0062910A /* AppDelegate.swift in Sources */,
 				B2B14E4F202F947F0062910A /* ViewControllerTableViewCell.swift in Sources */,
+				B2B14E51202FA2050062910A /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
