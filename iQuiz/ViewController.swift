@@ -8,6 +8,7 @@
 
 import UIKit
 
+var myIndex = 0
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var appdata = AppData.shared
  
@@ -33,6 +34,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        myIndex = indexPath.row
+        performSegue(withIdentifier: "segue", sender: self)
+    }
+    
     @IBAction func SettingsPressed(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -51,7 +57,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
