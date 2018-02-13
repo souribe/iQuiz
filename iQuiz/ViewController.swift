@@ -14,9 +14,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
     @IBOutlet weak var tableView: UITableView!
     
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        tableView.reloadData()
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
