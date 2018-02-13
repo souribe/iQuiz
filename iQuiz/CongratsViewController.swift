@@ -16,14 +16,16 @@ class CongratsViewController: UIViewController {
         super.viewDidLoad()
         if points / questions.count == 1 {
             score.text = "Perfect! You got \(points)/\(questions.count)"
+        } else if points != 0 {
+            score.text = "Not bad, You got \(points)/\(questions.count)"
         } else {
-            score.text = "Almost! You got \(points)/\(questions.count)"
+            score.text = "Oooooh sorry mate, You got \(points)/\(questions.count)"
         }
         points = 0
     }
 
     @IBAction func nextPressed(_ sender: Any) {
-                performSegue(withIdentifier: "congratsHome", sender: self)
+        performSegue(withIdentifier: "congratsHome", sender: self)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

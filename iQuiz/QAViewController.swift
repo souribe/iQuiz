@@ -10,29 +10,32 @@ import UIKit
 
 var points = 0
 var questions : [String] = []
+var currentQuestion = 0 // global to keep after changing views
+
+// send to AnswerViewController
+var currentA = ""
+var currentQ = ""
+var moreQs = false
+var isItRight = false
 
 class QAViewController: UIViewController {
 
-    
     @IBOutlet weak var question: UILabel!
     @IBOutlet weak var answer1: UIButton!
     @IBOutlet weak var answer2: UIButton!
     @IBOutlet weak var answer3: UIButton!
     @IBOutlet weak var answer4: UIButton!
-    
     @IBOutlet weak var pageTitle: UINavigationItem!
     @IBOutlet weak var submitButton: UIButton!
     
-    
-    
     var appdata = AppData.shared
-    var currentQuestion = 0
+    
+    //var currentQuestion = 0
     var rightAnswerPlacement:UInt32 = 0
     var beforeTag = -1
     var currentTag = -1
     var currentButton:UIButton = UIButton()
     var answers : [[String]] = []
-    
     
     @IBAction func answerPressed(_ sender: Any) {
         if beforeTag == -1 {
@@ -56,6 +59,7 @@ class QAViewController: UIViewController {
     
     // function that displays new question
     func newQuestion() {
+        print("myindex: \(myIndex) ")
         switch(myIndex) {
         case 0 :
             questions = appdata.mathQuestions
@@ -68,11 +72,16 @@ class QAViewController: UIViewController {
             answers = appdata.scienceAnswers
         }
         
+        print("currentQuestion: \(currentQuestion) ")
         print(questions)
-        print(answers)
-        question.text = questions[currentQuestion]
+
+        currentQ = questions[currentQuestion] //store question
+        question.text = currentQ
+        
         rightAnswerPlacement = arc4random_uniform(4) + 1
-        //        print("RightAnswerPlacement: \(rightAnswerPlacement)")
+        currentA = answers[currentQuestion][0] // store correct answer
+        
+        // answer randomizer
         // Create a button
         var button:UIButton = UIButton()
         var x = 1
@@ -81,7 +90,7 @@ class QAViewController: UIViewController {
             // Create a button
             button = view.viewWithTag(i) as! UIButton
             if (i == Int(rightAnswerPlacement)) { // if i button index is equal to rightAnswerPlacement
-                button.setTitle(answers[currentQuestion][0], for: .normal)
+                button.setTitle(currentA, for: .normal)
             } else {
                 button.setTitle(answers[currentQuestion][x], for: .normal)
                 x += 1
@@ -93,21 +102,29 @@ class QAViewController: UIViewController {
     @IBAction func submitPressed(_ sender: Any) {
         if (currentTag == Int(rightAnswerPlacement)) {
             print ("Right!")
+            isItRight = true
             points += 1
         } else {
             print("Wrong!")
+            isItRight = false
         }
+        
+        // goes to new question
         if (currentQuestion != questions.count) {
-            newQuestion()
+            //newQuestion()
             currentButton.isSelected = false
+            moreQs = true
+            performSegue(withIdentifier: "qaToAnswer", sender: self)
         } else {
-            performSegue(withIdentifier: "congrats", sender: self)
+            moreQs = false
+            currentQuestion = 0
+            performSegue(withIdentifier: "qaToAnswer", sender: self)
         }
     }
     
-    
     @IBAction func backPressed(_ sender: Any) {
         performSegue(withIdentifier: "backHome", sender: self)
+        currentQuestion = 0
         points = 0
     }
     
@@ -117,6 +134,4 @@ class QAViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
 }

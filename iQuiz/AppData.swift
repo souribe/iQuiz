@@ -20,14 +20,16 @@ class AppData: NSObject {
     ]
     open var mathAnswers = [
         ["a2 + b2 = c2", "c2 + b2 = a2", "I don't know bruh", "E = MC2"],
-        ["Rick James", "1", "2", "3"]
+        ["2", "1738", "11", "3"]
     ]
     
     open var shieldQuestions = [
-        "Who was Shield formerly run by?"
+        "Who was Shield formerly run by?",
+        "What is Centipede?"
     ]
     open var shieldAnswers = [
-        ["Nick Fury", "Sif", "List", "Jasper Sitwell"]
+        ["Nick Fury", "Sif", "List", "Jasper Sitwell"],
+        ["A secret group to create super-soldiers", "Another name for HYDRA", "An evil Asgardian machine", "A super-villain"]
     ]
     
     open var scienceQuestions = [
