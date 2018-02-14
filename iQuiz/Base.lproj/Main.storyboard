@@ -27,7 +27,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="161"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ttn-eX-2gQ" id="TqU-Nx-Auq">
-                                            <rect key="frame" x="0.0" y="0.0" width="635" height="160.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="160.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4dN-va-kc1">
@@ -38,7 +38,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLS-7q-0Kd">
-                                                    <rect key="frame" x="152" y="16" width="469" height="79.5"/>
+                                                    <rect key="frame" x="152" y="16" width="177" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="XLS-7q-0Kd" secondAttribute="height" multiplier="59:10" id="J6Q-67-RJL"/>
                                                     </constraints>
@@ -47,7 +47,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50b-o3-Klq">
-                                                    <rect key="frame" x="152" y="-73.5" width="469" height="217.5"/>
+                                                    <rect key="frame" x="152" y="62" width="177" height="82"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="50b-o3-Klq" secondAttribute="height" multiplier="177:82" id="kNb-7U-2CF"/>
                                                     </constraints>
@@ -380,6 +380,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="K8I-Ha-kpG"/>
-        <segue reference="Fxr-Iu-U0x"/>
+        <segue reference="s8J-yi-6fl"/>
     </inferredMetricsTieBreakers>
 </document>
