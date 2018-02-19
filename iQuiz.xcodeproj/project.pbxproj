@@ -22,6 +22,9 @@
 		B2B14E59202FAE490062910A /* QAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B14E58202FAE490062910A /* QAViewController.swift */; };
 		B2B14E5B2031352A0062910A /* CongratsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B14E5A2031352A0062910A /* CongratsViewController.swift */; };
 		B2B14E992032848A0062910A /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B14E982032848A0062910A /* AnswerViewController.swift */; };
+		B2BF800A203A5BFB00944947 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BF8009203A5BFB00944947 /* Topic.swift */; };
+		B2BF800C203A5C2400944947 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BF800B203A5C2400944947 /* Question.swift */; };
+		B2BF800E203A5C4500944947 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BF800D203A5C4500944947 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,9 @@
 		B2B14E58202FAE490062910A /* QAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAViewController.swift; sourceTree = "<group>"; };
 		B2B14E5A2031352A0062910A /* CongratsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsViewController.swift; sourceTree = "<group>"; };
 		B2B14E982032848A0062910A /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
+		B2BF8009203A5BFB00944947 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		B2BF800B203A5C2400944947 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		B2BF800D203A5C4500944947 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,9 @@
 			isa = PBXGroup;
 			children = (
 				B2B14E50202FA2050062910A /* AppData.swift */,
+				B2BF8009203A5BFB00944947 /* Topic.swift */,
+				B2BF800B203A5C2400944947 /* Question.swift */,
+				B2BF800D203A5C4500944947 /* Reachability.swift */,
 				B2B14E1A202E976E0062910A /* AppDelegate.swift */,
 				B2B14E1C202E976E0062910A /* ViewController.swift */,
 				B2B14E58202FAE490062910A /* QAViewController.swift */,
@@ -289,9 +298,12 @@
 				B2B14E1D202E976E0062910A /* ViewController.swift in Sources */,
 				B2B14E992032848A0062910A /* AnswerViewController.swift in Sources */,
 				B2B14E59202FAE490062910A /* QAViewController.swift in Sources */,
+				B2BF800C203A5C2400944947 /* Question.swift in Sources */,
 				B2B14E1B202E976E0062910A /* AppDelegate.swift in Sources */,
 				B2B14E5B2031352A0062910A /* CongratsViewController.swift in Sources */,
+				B2BF800A203A5BFB00944947 /* Topic.swift in Sources */,
 				B2B14E4F202F947F0062910A /* ViewControllerTableViewCell.swift in Sources */,
+				B2BF800E203A5C4500944947 /* Reachability.swift in Sources */,
 				B2B14E51202FA2050062910A /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

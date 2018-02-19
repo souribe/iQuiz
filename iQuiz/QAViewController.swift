@@ -11,6 +11,10 @@ import UIKit
 var points = 0
 var questions : [String] = []
 var currentQuestion = 0 // global to keep after changing views
+var qCount = 0
+
+var questionArray = [Question(answer: "", answers: [""], text: "" )] // array of questions
+var topic : Topic = Topic(title: "", desc: "", img: "", questions: questionArray) //
 
 // send to AnswerViewController
 var currentA = ""
@@ -37,6 +41,9 @@ class QAViewController: UIViewController {
     var currentButton:UIButton = UIButton()
     var answers : [[String]] = []
     
+    var topicObj : Topic = Topic(title: "", desc: "", img: "", questions: []) // get Topic object
+    var questionObj : Question = Question(answer: "", answers: [""], text: "")
+    
     @IBAction func answerPressed(_ sender: Any) {
         if beforeTag == -1 {
             beforeTag = 0
@@ -48,7 +55,7 @@ class QAViewController: UIViewController {
             currentButton.isSelected = true
         }
         currentTag = (sender as AnyObject).tag
-        print(currentTag)
+        //print(currentTag)
         submitButton.isEnabled = true
     }
     
@@ -59,27 +66,31 @@ class QAViewController: UIViewController {
     
     // function that displays new question
     func newQuestion() {
-        print("myindex: \(myIndex) ")
-        switch(myIndex) {
-        case 0 :
-            questions = appdata.mathQuestions
-            answers = appdata.mathAnswers
-        case 1 :
-            questions = appdata.shieldQuestions
-            answers = appdata.shieldAnswers
-        default:
-            questions = appdata.scienceQuestions
-            answers = appdata.scienceAnswers
-        }
+        qCount += 1
         
-        print("currentQuestion: \(currentQuestion) ")
-        print(questions)
-
-        currentQ = questions[currentQuestion] //store question
-        question.text = currentQ
+        topicObj = appdata.topics[myIndex]
+        pageTitle.title = topicObj.title
+        questionArray = topicObj.questions
+        print("below is the q number")
+        print(appdata.topics[myIndex].questions.count - 1)
+        print("below is currentQ number")
+        print(currentQuestion)
+        
+        
+        print("qCount = ")
+        print(qCount)
+        let singleQuestion = questionArray[currentQuestion]
+        answers = [singleQuestion.answers]
+        question.text = singleQuestion.text
+        
+        
+        
+        currentA = questionArray[currentQuestion].answer // store correct answer
+        currentQ = singleQuestion.text //store question
+        //question.text = currentQ
         
         rightAnswerPlacement = arc4random_uniform(4) + 1
-        currentA = answers[currentQuestion][0] // store correct answer
+
         
         // answer randomizer
         // Create a button
@@ -92,7 +103,7 @@ class QAViewController: UIViewController {
             if (i == Int(rightAnswerPlacement)) { // if i button index is equal to rightAnswerPlacement
                 button.setTitle(currentA, for: .normal)
             } else {
-                button.setTitle(answers[currentQuestion][x], for: .normal)
+                button.setTitle(singleQuestion.answers[x - 1], for: .normal)
                 x += 1
             }
         }
@@ -110,8 +121,9 @@ class QAViewController: UIViewController {
         }
         
         // goes to new question
-        if (currentQuestion != questions.count) {
-            //newQuestion()
+        if (currentQuestion < appdata.topics[myIndex].questions.count - 1) {
+            newQuestion()
+  
             currentButton.isSelected = false
             moreQs = true
             performSegue(withIdentifier: "qaToAnswer", sender: self)
@@ -120,7 +132,11 @@ class QAViewController: UIViewController {
             currentQuestion = 0
             performSegue(withIdentifier: "qaToAnswer", sender: self)
         }
+
     }
+    
+
+    
     
     @IBAction func backPressed(_ sender: Any) {
         performSegue(withIdentifier: "backHome", sender: self)
