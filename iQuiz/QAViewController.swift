@@ -34,8 +34,7 @@ class QAViewController: UIViewController {
     
     var appdata = AppData.shared
     
-    //var currentQuestion = 0
-    var rightAnswerPlacement:UInt32 = 0
+
     var beforeTag = -1
     var currentTag = -1
     var currentButton:UIButton = UIButton()
@@ -59,59 +58,38 @@ class QAViewController: UIViewController {
         submitButton.isEnabled = true
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         newQuestion()
     }
     
     // function that displays new question
     func newQuestion() {
-        qCount += 1
-        
         topicObj = appdata.topics[myIndex]
         pageTitle.title = topicObj.title
         questionArray = topicObj.questions
-        print("below is the q number")
-        print(appdata.topics[myIndex].questions.count - 1)
-        print("below is currentQ number")
-        print(currentQuestion)
         
-        
-        print("qCount = ")
-        print(qCount)
         let singleQuestion = questionArray[currentQuestion]
-        answers = [singleQuestion.answers]
+      //  answers = [singleQuestion.answers]
+
         question.text = singleQuestion.text
         
-        
-        
-        currentA = questionArray[currentQuestion].answer // store correct answer
+        let answerLocation = Int(questionArray[currentQuestion].answer)! - 1
+        currentA = questionArray[currentQuestion].answers[answerLocation] // store correct answer
         currentQ = singleQuestion.text //store question
-        //question.text = currentQ
         
-        rightAnswerPlacement = arc4random_uniform(4) + 1
-
-        
-        // answer randomizer
         // Create a button
         var button:UIButton = UIButton()
         var x = 1
-        
         for i in 1...4 {
             // Create a button
             button = view.viewWithTag(i) as! UIButton
-            if (i == Int(rightAnswerPlacement)) { // if i button index is equal to rightAnswerPlacement
-                button.setTitle(currentA, for: .normal)
-            } else {
-                button.setTitle(singleQuestion.answers[x - 1], for: .normal)
-                x += 1
-            }
+            button.setTitle(singleQuestion.answers[x - 1], for: .normal)
+            x += 1
         }
-        currentQuestion += 1
     }
     
     @IBAction func submitPressed(_ sender: Any) {
-        if (currentTag == Int(rightAnswerPlacement)) {
+        if (currentTag == Int(questionArray[currentQuestion].answer)!) {
             print ("Right!")
             isItRight = true
             points += 1
@@ -120,23 +98,21 @@ class QAViewController: UIViewController {
             isItRight = false
         }
         
+        qCount += 1
+        currentQuestion += 1
+        
         // goes to new question
-        if (currentQuestion < appdata.topics[myIndex].questions.count - 1) {
-            newQuestion()
-  
+        if (currentQuestion < appdata.topics[myIndex].questions.count) {
             currentButton.isSelected = false
             moreQs = true
             performSegue(withIdentifier: "qaToAnswer", sender: self)
+            
         } else {
             moreQs = false
             currentQuestion = 0
             performSegue(withIdentifier: "qaToAnswer", sender: self)
         }
-
     }
-    
-
-    
     
     @IBAction func backPressed(_ sender: Any) {
         performSegue(withIdentifier: "backHome", sender: self)
