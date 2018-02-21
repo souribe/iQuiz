@@ -57,19 +57,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.checkJsonData()
             
             var network = ""
-            var dErr = ""
+            //var dErr = ""
             if self.isOn == true {
                 network = "Network is available"
             } else {
                 network = "Network not available"
             }
-            if self.downloadErr {
-                dErr = "Download Failed"
-            } else {
-                dErr = "File Downloaded"
-            }
+//            if self.downloadErr {
+//                dErr = "Download Failed"
+//            } else {
+//                dErr = "File Downloaded"
+//            }
             
-            let alertController2 = UIAlertController(title: "Network Availability", message: ("\(network) | \(dErr)"), preferredStyle: .alert)
+            let alertController2 = UIAlertController(title: "Network Availability", message: network, preferredStyle: .alert)
             let action2 = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController2.addAction(action2)
             self.present(alertController2, animated: true, completion: nil)
