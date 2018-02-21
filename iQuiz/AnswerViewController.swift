@@ -40,8 +40,6 @@ class AnswerViewController: UIViewController {
         } else {
             gotItRight.text = "Sorry mate, got it wrong :("
         }
-        
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

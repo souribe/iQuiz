@@ -12,6 +12,11 @@ var myIndex = 0
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var appdata = AppData.shared
  
+    var fromUrl = "https://tednewardsandbox.site44.com/questions.json"
+    var isOn = false
+    var downloadErr = false
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,15 +45,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         performSegue(withIdentifier: "segue", sender: self)
     }
     
-    @IBAction func SettingsPressed(_ sender: UIBarButtonItem) {
-        _ = checkReachability()
+    func checkJsonData() {
+        isOn = checkReachability()
         getData()
-//        let alertController = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
-//        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//        alertController.addAction(defaultAction)
-//        present(alertController, animated: true, completion: nil)
     }
-
+    
+    @IBAction func SettingsPressed(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Settings", message: "Download JSON", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let action1 = UIAlertAction(title: "Check Now", style: .default) { (action) in
+            self.checkJsonData()
+            
+            var network = ""
+            var dErr = ""
+            if self.isOn == true {
+                network = "Network is available"
+            } else {
+                network = "Network not available"
+            }
+            if self.downloadErr {
+                dErr = "Download Failed"
+            } else {
+                dErr = "File Downloaded"
+            }
+            
+            let alertController2 = UIAlertController(title: "Network Availability", message: ("\(network) | \(dErr)"), preferredStyle: .alert)
+            let action2 = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController2.addAction(action2)
+            self.present(alertController2, animated: true, completion: nil)
+        }
+        alertController.addAction(defaultAction)
+        alertController.addAction(action1)
+        present(alertController, animated: true, completion: nil)
+    }
 
     var refresher: UIRefreshControl!
     
@@ -60,15 +89,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresher.addTarget(self, action: #selector(ViewController.getData), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
-        //        let path = Bundle.main.path(forResource: "questions", ofType: "json")
-        //        print(path!)
-        //        let url = URL(fileURLWithPath: path!)
-        //        print(url)
         getData()
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
+    
 
     func checkReachability() -> Bool {
         if currentReachabilityStatus == .reachableViaWiFi {
@@ -85,9 +111,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    var didGetData = false
+    
     @objc func getData() {
         appdata.topics.removeAll()
-        let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
+        let url = URL(string: fromUrl)
         if checkReachability() {
             let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 if error != nil {
@@ -97,32 +125,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     if let content = data {
                         do {
                             let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSArray
-                            //                        let path = Bundle.main.path(forResource: "questions", ofType: "json")
-                            //                        print(path!)
-                            //                        let url = URL(fileURLWithPath: path!)
-                            //                        print(url)
-                            //                        let encodedData = try? JSONEncoder().encode(myJson)
                             UserDefaults.standard.set(myJson, forKey: "QuestionsJSON")
                             let data = UserDefaults.standard.object(forKey: "QuestionsJSON") as! NSArray
-                            var idx = 0
-                            for i in data {
-                                let object = i as AnyObject
-                                let title = object["title"] as! String
-                                let desc = object["desc"] as! String
-                                let tempQuestions = object["questions"] as! NSArray
-                                var questions: [Question] = []
-                                for questionObject in tempQuestions {
-                                    let q = questionObject as AnyObject
-                                    let answer = q["answer"] as! String
-                                    let answers = q["answers"] as! [String]
-                                    let text = q["text"] as! String
-                                    let question = Question(answer: answer, answers: answers, text: text)
-                                    questions.append(question)
-                                }
-                                let topic: Topic = Topic(title: title, desc: desc, img: self.appdata.images[idx], questions: questions)
-                                self.appdata.topics.append(topic)
-                                idx += 1
-                            }
+                            self.showQuizInformation(JSONResult: data)
+                            
+                            self.saveDataOnDisk(jsonData: data)
+                            
                         } catch {
                             print("Catch")
                         }
@@ -131,6 +139,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         }
                     } else {
                         print("Error")
+                        
                     }
                 }
             }
@@ -141,6 +150,62 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         refresher.endRefreshing()
         tableView.reloadData()
     }
+    
+    func saveDataOnDisk(jsonData:NSArray) {
+        let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let documentsDirectoryPath = NSURL(string: documentsDirectoryPathString)!
+        
+        let jsonFilePath = documentsDirectoryPath.appendingPathComponent("questions.json")
+
+        
+        let fileManager = FileManager.default
+        var isDirectory: ObjCBool = false
+        
+        // creating a .json file in the Documents folder
+        if !fileManager.fileExists(atPath: (jsonFilePath?.absoluteString)!, isDirectory: &isDirectory) {
+            let created = fileManager.createFile(atPath: (jsonFilePath?.absoluteString)!, contents: nil, attributes: nil)
+            if created {
+                print("File created ")
+            } else {
+                print("Couldn't create file for some reason")
+            }
+        } else {
+            print("File already exists")
+        }
+        
+        // creating an array of test data
+        var dataList = [NSArray]()
+        //let names = ["Anna", "Alex", "Brian", "Jack"]
+        
+        dataList.append(jsonData)
+        
+     
+        
+        // creating JSON out of the above array
+        var jsonData: NSData!
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: dataList, options: JSONSerialization.WritingOptions()) as NSData
+            _ = String(data: jsonData as Data, encoding: String.Encoding.utf8)
+            //print(jsonString)
+        } catch let error as NSError {
+            print("Array to JSON conversion failed: \(error.localizedDescription)")
+        }
+        
+        // Write that JSON to the file created earlier
+        _ = documentsDirectoryPath.appendingPathComponent("questions.json")
+        do {
+            let file = try FileHandle(forWritingTo: jsonFilePath!)
+            file.write(jsonData as Data)
+            print("JSON data was written to the file successfully!")
+        } catch let error as NSError {
+            print("Couldn't write to file: \(error.localizedDescription)")
+        }
+    }
+    
+//    func getDocumentsDirectory() -> URL {
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        return paths[0]
+//    }
     
     func showQuizInformation(JSONResult: NSArray) {
         UserDefaults.standard.set(JSONResult, forKey: "QuestionsJSON")
@@ -170,8 +235,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func loadLocalJSONFile(filename: String) {
+        
         if let path = Bundle.main.path(forResource: "\(filename)", ofType: "json") {
+
             do {
+                
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
                 UserDefaults.standard.set(jsonResult, forKey: "QuestionsJSON")
